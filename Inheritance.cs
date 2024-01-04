@@ -39,9 +39,6 @@ namespace DotNetClassDemo
             ParentAccount ObjParentAccount = new ParentAccount();
             ObjParentAccount.Login("Parent", "123");
 
-
-            //EmployeeInformaion Obj = new EmployeeInformaion();
-
         }
 
     }
@@ -160,6 +157,6 @@ namespace DotNetClassDemo
     #endregion
     /* ==== */
 
-
+    
 
 }

@@ -16,14 +16,32 @@ namespace DotNetClassDemo
             //Encapsulation ObjEncapsulation = new Encapsulation();
             //Abstraction ObjAbstraction = new Abstraction();
 
-            decimal TotalAmount = CalculateSaleAmount(2, 10);
+            //ARUN Obj = new ARUN();
+            //Obj.Exec();
 
         }
 
-        static decimal CalculateSaleAmount(int Qty, Decimal Rate, decimal Discount = 0)
+
+        public partial class ARUN
         {
-            return Qty * Rate - Discount;
+            partial void Test();
+
+            public void Exec()
+            {
+                Test();
+            }
+
         }
+
+        public partial class ARUN
+        {
+            partial void Test()
+            {
+
+            }
+
+        }
+
 
     }
 }

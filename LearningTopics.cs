@@ -118,7 +118,9 @@
             */
 
             /* Example */
+
             /* Array */
+            #region"Array"
             /* Arrays are used to store multiple values in a single variable */
 
             /* ===== Type Of Array ===== */
@@ -160,16 +162,25 @@
             int SecondRow_FirstCol = jaggedArray[1][0];  /* Output : 4 */
             #endregion
 
+            #endregion
 
+            /* String */
+            #region"String"
+            /* The string is an object of the String class that represents a sequence of characters.
+             * We can perform many operations on strings such as concatenation, comparison, getting substring, search, trim, replacement, etc.
+             * */
+            string Str_Name = "DotNet"; /* Creates one object of string and assig the value "DotNet" */
+            Str_Name = "Class"; /* Creates a fresh object and assign the value "Class" */ 
+            #endregion
 
         }
         #endregion
         /* ===== */
 
-        /* ===== */
-        /* Learn the Datatype Parts */
-        #region"Datatype Parts"
-        public void LearnDataPart()
+            /* ===== */
+            /* Learn the Datatype Parts */
+            #region"Datatype Parts"
+            public void LearnDataPart()
         {
             /* In .NET Microsoft has divided data types in two parts, 
              * 1) Value Type (Fixed in size)
@@ -337,5 +348,7 @@
 
 
         }
+
+
     }
 }
