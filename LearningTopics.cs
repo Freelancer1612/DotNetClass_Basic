@@ -1,4 +1,10 @@
-﻿namespace DotNetClassDemo
+﻿using static System.Collections.Specialized.BitVector32;
+using System.ComponentModel;
+using System.Runtime.InteropServices;
+using System.Security.Policy;
+using System;
+
+namespace DotNetClassDemo
 {
     internal class LearningTopics
     {
@@ -19,12 +25,28 @@
             /* Learn the Boxing and Unboxing */
             LeanBoxingUnboxing();
 
+            /* Learn the Enum */
+            LearnEnums();
+
+            /* Learn Partial Class */
+            LearnPartialClass();
+
+            /* Learn the Partial Method */
+            LearnPartialMethod();
+
+            /* Learn the Learn Exception Handling */
+            LearnExceptionHandling();
+
+            /* Learn the Difference between Convert.ToString() and ToString() */
+            LearnStringConvertDiff();
+
+
         }
 
         /* ===== */
-        /* Learn the Datatypes With Default Values */
-        #region "Data types"
-        public void LearnDataTypes()
+            /* Learn the Datatypes With Default Values */
+            #region "Data types"
+            public void LearnDataTypes()
         {
             /* Learn the Primitive Datatypes With Default Values */
             PrimitiveDatatypes();
@@ -170,17 +192,17 @@
              * We can perform many operations on strings such as concatenation, comparison, getting substring, search, trim, replacement, etc.
              * */
             string Str_Name = "DotNet"; /* Creates one object of string and assig the value "DotNet" */
-            Str_Name = "Class"; /* Creates a fresh object and assign the value "Class" */ 
+            Str_Name = "Class"; /* Creates a fresh object and assign the value "Class" */
             #endregion
 
         }
         #endregion
         /* ===== */
 
-            /* ===== */
-            /* Learn the Datatype Parts */
-            #region"Datatype Parts"
-            public void LearnDataPart()
+        /* ===== */
+        /* Learn the Datatype Parts */
+        #region"Datatype Parts"
+        public void LearnDataPart()
         {
             /* In .NET Microsoft has divided data types in two parts, 
              * 1) Value Type (Fixed in size)
@@ -338,8 +360,249 @@
         #endregion
         /* ===== */
 
+        /* ===== */
+        /* Enums */
+        #region "Enums"
+        public enum FeesSMSFields
+        {
+            SenderName = 0,
+            ReceiverName = 1,
+            FeesAmount = 2
+        }
+        public void LearnEnums()
+        {
+            /* What Is Enums? */
+            /* An enum type is a distinct value type that declares a set of named constants. */
+            /* Example */
 
-        public void MemoryAddress()
+            /* Orginal Message */
+            //string Str_Message = "Hi Ravi, We have received your payment(500.00)." +
+            //                     " Thanks for paying so promptly." +
+            //                     " If you have any query please contact Arun";
+
+
+            /* Bad practice */
+            string Str_BadPractice_Message = "Hi {1}, We have received your payment({2})." +
+                                 " Thanks for paying so promptly." +
+                                 " If you have any query please contact {0}";
+            Str_BadPractice_Message = string.Format(Str_BadPractice_Message, "Arun", "Ravi", "500.00");
+
+
+            /* Best practice */
+            string Str_BestPractice_Message = "Hi {" + (int)FeesSMSFields.ReceiverName + "}, We have received your payment({" + (int)FeesSMSFields.FeesAmount + "})." +
+                                 " Thanks for paying so promptly." +
+                                 " If you have any query please contact {" + (int)FeesSMSFields.SenderName + "}";
+            Str_BestPractice_Message = string.Format(Str_BestPractice_Message, "Arun", "Ravi", "500.00");
+
+        }
+        #endregion
+        /* ===== */
+
+        /* ===== */
+        /* Partial Class */
+        #region"Partial Class"
+        public partial class BankAccount
+        {
+            public string AccountNumber { get; set; }
+            public string AccountName { get; set; }
+            public string AccountType { get; set; }
+        }
+        public partial class BankAccount
+        {
+            public string BankName { get; set; }
+            public string Branch { get; set; }
+            public string IFSC { get; set; }
+        }
+        public void LearnPartialClass()
+        {
+            /* What is Partial Class and Use ? */
+            /* It is possible to split the definition of a class, a struct, an interface or a method over two or more source files.
+             * Each source file contains a section of the type or method definition, and all parts are combined when the application is compiled.
+             * */
+
+
+            /* Example */
+
+            /* Create New Object For Bank Account */
+            BankAccount ObjTransfer = new BankAccount();
+
+            /* First Part */
+            ObjTransfer.AccountNumber = "IOB0000001";
+            ObjTransfer.AccountName = "ARUN";
+            ObjTransfer.AccountType = "Savings";
+
+            /* Second Part */
+            ObjTransfer.BankName = "IOB";
+            ObjTransfer.Branch = "Coimbatore";
+            ObjTransfer.IFSC = "IOB4589";
+
+        }
+        #endregion
+        /* ===== */
+
+        /* ===== */
+        /* Partial Method */
+        #region"Partial Method"
+        public partial class Sales
+        {
+            partial void SendSMS(string ContactNo);
+            public void ProductSale(string ContactNo, string ProductCode, byte Qty, decimal Rate, decimal Amount)
+            {
+                /* =========== */
+                /* Store the Sales Details to Data Source */
+                /* **************************************** */
+                /* =========== */
+
+                /* Send Thank You Message to Client */
+                SendSMS(ContactNo);
+            }
+
+            /* Now Developer Can Stop this service anytime, System Never rise any errors */
+            partial void SendSMS(string ContactNo)
+            {
+                // SMS Sending Code //
+            }
+
+        }
+        public void LearnPartialMethod()
+        {
+            /* What is Partial Method? */
+            /* A partial method has its signature defined in one part of a partial type, and its implementation defined in another part of the type.Partial methods enable class designers to provide method hooks, similar to event handlers, that developers may decide to implement or not. If the developer does not supply an implementation, the compiler removes the signature at compile time.
+             * The following conditions apply to partial methods:
+             *  1) Declarations must begin with the contextual keyword partial.
+             *  2) Signatures in both parts of the partial type must match.
+                The partial keyword isn't allowed on constructors, finalizers, overloaded operators,
+             */
+
+            /* Exampe */
+            Sales ObjSales = new Sales();
+            ObjSales.ProductSale("9095352489", "Item0001", 5, 10, 50);
+        }
+        #endregion
+        /* ===== */
+
+        /* ===== */
+        /* Exception Handling */
+        #region "Exception Handling"
+        public void LearnExceptionHandling()
+        {
+            /* What Is Exception Handling? */
+            /* Exception Handling in C# is a process to handle runtime errors.
+             * We perform exception handling so that normal flow of the application can be maintained even after runtime errors.
+             * In C#, exception is an event or object which is thrown at runtime. All exceptions the derived from System.Exception class. It is a runtime error which can be handled. 
+             * If we don't handle the exception, it prints exception message and terminates the program.
+             */
+
+            // C# Exception Classes
+            // All the exception classes in C# are derived from System.Exception class.
+            // Let's see the list of C# common exception classes.
+            /* 
+             * System.DivideByZeroException => handles the error generated by dividing a number with zero.
+             * System.NullReferenceException => handles the error generated by referencing the null object.
+             * System.InvalidCastException => handles the error generated by invalid typecasting.
+             * System.IO.IOException  => handles the Input Output errors.
+             * System.FieldAccessException => handles the error generated by invalid private or protected field access.
+             */
+
+            /* C# Exception Handling Keywords */
+            /*
+             * i)   try       => The try block in C# is used to place the code that may throw exception.
+             * ii)  catch     => The catch block is used to handled the exception. The catch block must be preceded by try block.
+             * iii) finally   => The finally block is used to execute important code which is to be executed whether exception is handled or not. It must be preceded by catch or try block.
+             */
+
+            /* Example For Try, Catch */
+            String Str_WrongDate = "45-JAN-2024"; /* It's a Wrong Date */
+            String ReturnMessage = ConvetStringToDate(Str_WrongDate);
+
+            /* Example For Try, Catch, finally */
+            int ErrorCase = DivideByTwo("0"); /* Output 0 */
+            int ValidCase = DivideByTwo("10"); /* Output 5 */
+
+        }
+        public string ConvetStringToDate(String CurentDate)
+        {
+            String Message = "";
+            DateTime dt_Output = new DateTime();
+
+            try
+            {
+                dt_Output = DateTime.Parse(CurentDate);
+                Message = "Date has been Converted Successfully";
+            }
+            catch(Exception ex) 
+            {
+                Message = "Sorry, Given Date Is Invalid(" + CurentDate + "), Please Check and Contine";
+            }
+            return Message;
+        }
+        public int DivideByTwo(String InputValue)
+        {
+            string Str_Message = "";
+            int t_ReturnValue = 0;
+
+            try
+            {
+                int number = int.Parse(InputValue);
+                t_ReturnValue = 2 / number; // Potential DivideByZeroException
+                Str_Message = "Success";
+            }
+            catch (FormatException ex)
+            {
+                Str_Message = "Error: Input is not a valid number.";
+            }
+            catch (DivideByZeroException ex)
+            {
+                Str_Message = "Error: Cannot divide by zero.";
+            }
+            catch (Exception ex)
+            {
+                Str_Message = "An unexpected error occurred.";
+            }
+            finally
+            {
+                /* If System rise an error we assign default Value */
+                if (Str_Message != "Success")
+                {
+                    t_ReturnValue = -1;
+                }
+            }
+            return t_ReturnValue;
+        }
+        #endregion
+        /* ===== */
+
+        /* ===== */
+        /* Learn the Difference between Convert.ToString() and ToString() */
+        #region"Learn String ConvertDiff"
+        public void LearnStringConvertDiff()
+        {
+            /* In C#, Convert.ToString() and ToString() are two different methods used for converting values to string representations, 
+             * but they are used in different contexts.
+             */
+
+            /* Convert.ToString() Method:
+                This method is part of the Convert class in the System namespace.
+                It is a static method that can be called directly on the Convert class without having an instance of an object.
+                It is designed to handle a wide variety of data types and provides a consistent way to convert various types to their string representations.
+                If the input value is null, it returns an empty string instead of throwing a NullReferenceException.
+            */
+            int number = 42;
+            string strNumber = Convert.ToString(number);
+
+            /* ToString() Method:
+                This method is part of the Object class, the base class for all types in C#.
+                It is an instance method, which means it needs to be called on an object.
+                Every type in C# inherits from Object, and therefore, every object in C# has a ToString() method.
+                The implementation of ToString() can vary between different types and is often overridden in derived classes to provide a meaningful string representation.
+            */
+            DateTime currentDate = DateTime.Now;
+            string strDate = currentDate.ToString();
+        }
+        #endregion
+        /* ===== */
+
+            public void MemoryAddress()
         {
 
             byte x = 100;
@@ -348,7 +611,5 @@
 
 
         }
-
-
     }
 }

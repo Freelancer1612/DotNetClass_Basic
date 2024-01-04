@@ -25,6 +25,7 @@ namespace DotNetClassDemo
     {
         public abstract Boolean AssignFees(int StudentId, Decimal Discount, Decimal FeesAmount, Decimal TotalAmount);
         public abstract Decimal FeesCollection(int StudentId, Decimal FeesAmount, Decimal DiscountAmount, Decimal TotalAmount);
+
     }
 
     /* 1 Person (Abstract Methods) */
@@ -70,6 +71,8 @@ namespace DotNetClassDemo
         void BankTransfer(string AccountNumber, Decimal Amount);
         void CheckBalanace(string AccountNumber);
         void MiniStatement(string AccountNumber);
+
+        
     }
     public class SBIBankATM : IBankATM
     {

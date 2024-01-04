@@ -16,8 +16,18 @@ namespace DotNetClassDemo
             //Encapsulation ObjEncapsulation = new Encapsulation();
             //Abstraction ObjAbstraction = new Abstraction();
 
-            //ARUN Obj = new ARUN();
-            //Obj.Exec();
+           var Name =  String.Format("Hi {"+ (int)MailFields.Name + "}", "ARUN");
+
+            ARUN Obj = new ARUN();
+            Obj.Exec();
+
+        }
+
+        public enum MailFields
+        {
+            Name = 0,
+            FeesAmount = 1,
+           
 
         }
 
