@@ -16,12 +16,44 @@ namespace DotNetClassDemo
             //Encapsulation ObjEncapsulation = new Encapsulation();
             //Abstraction ObjAbstraction = new Abstraction();
 
-           var Name =  String.Format("Hi {"+ (int)MailFields.Name + "}", "ARUN");
+            ////var Name =  String.Format("Hi {"+ (int)MailFields.Name + "}", "ARUN");
 
-            ARUN Obj = new ARUN();
-            Obj.Exec();
+            //ARUN Obj = new ARUN();
+            //Obj.Exec();
+
+
+            //Console.WriteLine("Enter Your Date Of Birth");
+            //String DateOfBirth = Console.ReadLine();
+            //Console.WriteLine("Your Age Is : " + CalculateAge(DateOfBirth));
+
+            String Output = Convert.ToString(null);
+            String Input = null;
+            String Ouput2 =  Input.ToString();
+
 
         }
+
+        public static String CalculateAge(String DateOfBirth)
+        {
+            String Str_Message = "";
+            try
+            {
+                DateTime dt_DOB = DateTime.Parse(DateOfBirth);
+                int Age = DateTime.Now.Year - dt_DOB.Year;
+                Str_Message =  Age.ToString();
+            }
+            catch (Exception ex)
+            {
+                Str_Message = ex.Message;
+            }
+            //finally
+            //{
+
+            //}
+            return Str_Message;
+
+        }
+
 
         public enum MailFields
         {

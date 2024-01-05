@@ -516,7 +516,7 @@ namespace DotNetClassDemo
             String ReturnMessage = ConvetStringToDate(Str_WrongDate);
 
             /* Example For Try, Catch, finally */
-            int ErrorCase = DivideByTwo("0"); /* Output 0 */
+            int ErrorCase = DivideByTwo("0"); /* Output -1 */
             int ValidCase = DivideByTwo("10"); /* Output 5 */
 
         }
@@ -587,7 +587,7 @@ namespace DotNetClassDemo
                 It is designed to handle a wide variety of data types and provides a consistent way to convert various types to their string representations.
                 If the input value is null, it returns an empty string instead of throwing a NullReferenceException.
             */
-            int number = 42;
+            String number = null;
             string strNumber = Convert.ToString(number);
 
             /* ToString() Method:
@@ -596,8 +596,8 @@ namespace DotNetClassDemo
                 Every type in C# inherits from Object, and therefore, every object in C# has a ToString() method.
                 The implementation of ToString() can vary between different types and is often overridden in derived classes to provide a meaningful string representation.
             */
-            DateTime currentDate = DateTime.Now;
-            string strDate = currentDate.ToString();
+            String number2 = null;
+            string strDate = number2.ToString();
         }
         #endregion
         /* ===== */
