@@ -1,4 +1,12 @@
 ﻿using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Globalization;
+using System.Security.Cryptography;
+using System.Text.RegularExpressions;
+using System.Threading;
+using System.Threading.Tasks;
+using static DotNetClassDemo.LearningTopics;
 
 namespace DotNetClassDemo
 {
@@ -16,74 +24,77 @@ namespace DotNetClassDemo
             //Encapsulation ObjEncapsulation = new Encapsulation();
             //Abstraction ObjAbstraction = new Abstraction();
 
-            ////var Name =  String.Format("Hi {"+ (int)MailFields.Name + "}", "ARUN");
+            //int A = 0;
+            //System.Type type = typeof(LearningTopics);
 
-            //ARUN Obj = new ARUN();
-            //Obj.Exec();
-
-
-            //Console.WriteLine("Enter Your Date Of Birth");
-            //String DateOfBirth = Console.ReadLine();
-            //Console.WriteLine("Your Age Is : " + CalculateAge(DateOfBirth));
-
-            String Output = Convert.ToString(null);
-            String Input = null;
-            String Ouput2 =  Input.ToString();
-
-
-        }
-
-        public static String CalculateAge(String DateOfBirth)
-        {
-            String Str_Message = "";
-            try
+            List<string> lstData = new List<string>();
+            for (byte i = 0; i < 100; i++)
             {
-                DateTime dt_DOB = DateTime.Parse(DateOfBirth);
-                int Age = DateTime.Now.Year - dt_DOB.Year;
-                Str_Message =  Age.ToString();
+                lstData.Add(i.ToString());  /* 1 Ns x 100 */
             }
-            catch (Exception ex)
-            {
-                Str_Message = ex.Message;
-            }
-            //finally
-            //{
 
-            //}
-            return Str_Message;
-
-        }
+            /* Work One */
+            Thread ObjWork = new Thread(DOSomeWork);
+            InputParam ObjFirstWork = new InputParam();
+            ObjFirstWork.StartCount = 0;
+            ObjFirstWork.Limit = 50;
+            ObjFirstWork.lstData = lstData;
 
 
-        public enum MailFields
-        {
-            Name = 0,
-            FeesAmount = 1,
+            /* Work two */
+            Thread ObjWork2 = new Thread(DOSomeWork);
+            InputParam ObjFirstWork2 = new InputParam();
+            ObjFirstWork2.StartCount = 50;
+            ObjFirstWork2.Limit = 50;
+            ObjFirstWork2.lstData = lstData;
            
+            /* Execute the Print Work */
+            ObjWork.Start(ObjFirstWork);
+            ObjWork2.Start(ObjFirstWork2);
+            ObjWork2.Suspend();
+
+
+
+
+
+            //Task<Boolean> lstTask = new Task<bool>(DOSomeWork);
+            //lstTask.Add
 
         }
 
 
-        public partial class ARUN
+        static void DOSomeWork(dynamic ObjInput)
         {
-            partial void Test();
-
-            public void Exec()
+            for (byte i = ObjInput.StartCount; i < (ObjInput.StartCount + ObjInput.Limit); i++)
             {
-                Test();
+                Console.WriteLine("Count " + i);
             }
 
+            Thread.Sleep(5000);
+            Console.WriteLine("Completed");
+
         }
 
-        public partial class ARUN
+        static async Task<Boolean> TaskFunction(dynamic ObjInput)
         {
-            partial void Test()
+            for (byte i = ObjInput.StartCount; i < (ObjInput.StartCount + ObjInput.Limit); i++)
             {
-
+                Console.WriteLine("Count " + i);
             }
 
+            Thread.Sleep(5000);
+            Console.WriteLine("Completed");
+            return await Task.FromResult(true);
+
         }
 
+        public class InputParam
+        {
+           public byte StartCount { get; set; }
+            public byte Limit { get; set; }
+            public List<string> lstData { get; set; }
 
+        }
+        
     }
 }

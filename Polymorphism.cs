@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Diagnostics;
 
 namespace DotNetClassDemo
 {
@@ -27,7 +28,7 @@ namespace DotNetClassDemo
             DynamicPolymorphism ObjDynamic = new DynamicPolymorphism();
             Decimal BestDiscountAmount = ObjDynamic.GetDiscountAmount(1000);
 
-
+            Debug.WriteLine("Input Value Collected");
         }
 
 

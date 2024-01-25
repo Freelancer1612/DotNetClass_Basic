@@ -3,6 +3,8 @@ using System.ComponentModel;
 using System.Runtime.InteropServices;
 using System.Security.Policy;
 using System;
+using System.Text.RegularExpressions;
+using System.Diagnostics;
 
 namespace DotNetClassDemo
 {
@@ -10,11 +12,17 @@ namespace DotNetClassDemo
     {
         public LearningTopics()
         {
+            Debug.WriteLine("LearningTopics Started");
+
             /* Learn the Datatypes With Default Values */
             LearnDataTypes();
 
+            Debug.WriteLine("Learning Datatype Completed");
+
             /* Learn the Datatypes Handling Memory */
             LearnDataPart();
+
+            Debug.WriteLine("Learning Data Part Completed");
 
             /* Learn the Variable With Rules */
             LearnVariables();
@@ -37,16 +45,27 @@ namespace DotNetClassDemo
             /* Learn the Learn Exception Handling */
             LearnExceptionHandling();
 
+            /* Learn the Custom Exception */
+            LearnCustomException();
+
+            /* Learn the Preventing Exception Handling Abuse */
+            LearnPreventingExceptionHandlingAbuse();
+
             /* Learn the Difference between Convert.ToString() and ToString() */
             LearnStringConvertDiff();
+
+            /* Learn the Sealed Class */
+            LearnSealedClass();
+
+
 
 
         }
 
         /* ===== */
-            /* Learn the Datatypes With Default Values */
-            #region "Data types"
-            public void LearnDataTypes()
+        /* Learn the Datatypes With Default Values */
+        #region "Data types"
+        public void LearnDataTypes()
         {
             /* Learn the Primitive Datatypes With Default Values */
             PrimitiveDatatypes();
@@ -237,7 +256,7 @@ namespace DotNetClassDemo
             /* Example */
             // CLR manages heap (large memory area). Heap address is accessed from stack.
             // In reference type reference is used for processing using both managed heap and stack (operational entity). 
-            LearningTopics ObjTopics = new LearningTopics();
+            //LearningTopics ObjTopics = new LearningTopics();
         }
 
         #endregion
@@ -530,7 +549,7 @@ namespace DotNetClassDemo
                 dt_Output = DateTime.Parse(CurentDate);
                 Message = "Date has been Converted Successfully";
             }
-            catch(Exception ex) 
+            catch (Exception ex)
             {
                 Message = "Sorry, Given Date Is Invalid(" + CurentDate + "), Please Check and Contine";
             }
@@ -559,15 +578,122 @@ namespace DotNetClassDemo
             {
                 Str_Message = "An unexpected error occurred.";
             }
-            finally
-            {
+            //finally
+            //{
                 /* If System rise an error we assign default Value */
                 if (Str_Message != "Success")
                 {
                     t_ReturnValue = -1;
                 }
-            }
+            //}
             return t_ReturnValue;
+        }
+        #endregion
+        /* ===== */
+
+        /* ===== */
+        /* Custom Exception Type */
+        #region "Custom Exception Type"
+        public void LearnCustomException()
+        {
+            /* What Is Custom Exception ? */
+            /* In C#, you can create custom exception types by defining a new class that inherits from the System.Exception class. */
+            /* Example */
+            try
+            {
+                /* InputA = "F"
+                 * InputB = "F"
+                /* A = int.Parse("6");
+                 * B = int.Parse("l"); */
+                String StudentName = "ARUN1612";
+                Regex regex = new Regex("^[a-zA-Z]+$");
+                if (regex.IsMatch(StudentName) == false)
+                {
+                    throw new InvalidStudentNameException(StudentName);
+                }
+            }
+            catch (InvalidStudentNameException ex)
+            {
+                Console.WriteLine(ex.Message);
+               
+            }
+        }
+        public class InvalidStudentNameException : Exception
+        {
+            public InvalidStudentNameException() { }
+            public InvalidStudentNameException(string name) : base(String.Format("Invalid Student Name: {0}", name))
+            {
+               
+            }
+        }
+        #endregion
+        /* ===== */
+
+        /* ===== */
+        /* Preventing Exception Handling Abuse */
+        #region"Preventing Exception Handling Abuse"
+        public void LearnPreventingExceptionHandlingAbuse()
+        {
+            /* What is Preventing Exception Handling Abuse ? */
+            /* tryParse Method is used to Preventing Exception Case */
+            /* Example */
+            byte OutPut = 0;
+            byte.TryParse("12F", out OutPut); /* Here 12F IS Not a Hole Number But Try Parse Handle the Exception and Return Byte Default Value */
+        }
+        #endregion
+        /* ===== */
+
+        /* ===== */
+        /* Sealed Class */
+        #region "SealedClass"
+        public void LearnSealedClass()
+        {
+            /* What Is Sealed Class ? */
+            /* A class from which it is not possible to create/derive a new class is known as a sealed class.
+             * In simple words, we can say that when we define the class using the sealed modifier, 
+             * then it is known as a sealed class and a sealed class cannot be inherited by any other classes.
+             */
+
+            /* Example */
+            /* You will get the following error message */
+            /* ‘GustUser’: cannot derive from sealed type ‘ManagerPermission’. */
+
+            /* Points to Remember while working with Sealed Class in C# */
+            /* 
+             * 1)  A sealed class is completely the opposite of an abstract class.
+             * 2)  The sealed class cannot contain any abstract methods.
+             * 3)  It should be the bottom-most class within the inheritance hierarchy.
+             * 4)  A sealed class can never be used as a base class.
+             * 5)  The sealed class is specially used to avoid further inheritance.
+             * 6)  The keyword sealed can be used with classes, instance methods, and properties.
+             */
+
+        }
+        public sealed class ManagerPermission
+        {
+            public void EditPermission() { }
+            public void DeletePermission() { }
+        }
+
+        /* If You Enable this Code */
+        /* ‘GustUser’: cannot derive from sealed type ‘ManagerPermission’. */
+        //public class GustUser : ManagerPermission
+        //{
+
+        //}
+        #endregion
+        /* ===== */
+
+        /* ===== */
+        /* Sealed Methods */
+        #region "Sealed Methods"
+        public void LearnSealedMethods()
+        {
+            /* What Is Sealed Methods ? */
+            /* The method that is defined in a parent class, if that method cannot be overridden under a child class, we call it a sealed method.
+             * That means by default, every method is a sealed method because overriding is not possible unless the method is not declared as virtual in the parent class.
+             * If a method is declared as virtual in a class, any child class of it can have the right to override that method. 
+             */
         }
         #endregion
         /* ===== */
@@ -602,14 +728,5 @@ namespace DotNetClassDemo
         #endregion
         /* ===== */
 
-            public void MemoryAddress()
-        {
-
-            byte x = 100;
-            byte y = 200;
-
-
-
-        }
     }
 }
